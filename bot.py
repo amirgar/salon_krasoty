@@ -1,9 +1,15 @@
-import config
 import telebot
 from telebot import types
 from string import Template
 import logging
-bot = telebot.TeleBot(config.token)
+
+token = "7116388354:AAGUoOwFEDfYJCxF2UUgxcd1S5KtidEq_y0"
+link = 't.me/saloon_krasoty2_bot'
+password = '12345678'
+chat_idd = -1002202544493
+
+bot = telebot.TeleBot(token)
+
 
 user_dict = {}
 
@@ -136,13 +142,14 @@ def process_reg_step6(message):
 
 
 def process_reg_step7(message):
+    global chat_idd
     chat_id = message.chat.id
     userr = message.from_user.username
     user = user_dict[chat_id]
     user.time = message.text
 
     bot.send_message(chat_id, getRegData(user, 'Ваша заявка'), parse_mode="markdown")
-    bot.send_message(config.chat_id, sendRegData(user, 'Заявка от бота', userr), parse_mode="markdown")
+    bot.send_message(chat_idd, sendRegData(user, 'Заявка от бота', userr), parse_mode="markdown")
 
 
 def sendRegData(user, title, name=''):
